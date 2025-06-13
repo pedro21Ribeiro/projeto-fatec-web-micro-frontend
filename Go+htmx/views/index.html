@@ -1,0 +1,40 @@
+{{ block "index" . }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+    <title>Index</title>
+</head>
+    <body>
+        {{template "form" .}}
+        <hr>
+        {{template "display" .}}
+    </body>
+</html>
+{{end}}
+
+
+{{ block "count" . }}
+    Count {{ .Count }} 
+{{end}}
+
+{{ block "form" . }}
+<form hx-swap="outerHTML" hx-post="/contacts" hx-target="#display">
+    Name: <input type="text" name="name"/>
+    Email: <input type="text" name="email"/>
+    <button type="submit">Create Contacts</button>
+</form>
+{{end}}
+
+{{ block "display" . }}
+<div id="display" style="display: flex; flex-direction: column;">
+    {{ range .Contacts }}
+        <div>
+            Name: <span>{{ .Name }}</span>
+            Email: <span>{{ .Email }}</span>
+        </div>
+    {{end}}
+</div>
+{{end}}
