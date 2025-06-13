@@ -6,6 +6,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"pedro21ribeiro.com/repository"
 )
 
 type Templates struct {
@@ -36,6 +37,10 @@ func newContact(name, email string) Contact {
 		Name: name,
 		Email: email,
 	}
+}
+
+type ErrorResponse struct{
+	Message string
 }
 
 type Contacts = []Contact
@@ -75,6 +80,7 @@ func newData() Data{
 	}
 }
 
+
 func main() {
 
 	e := echo.New()
@@ -98,6 +104,17 @@ func main() {
 
 		data.Contacts = append(data.Contacts, newContact(name, email))
 		return c.Render(200, "display", data)
+	})
+
+	e.POST("/findUser", func(c echo.Context) error {
+		user, err := repository.GetFirstUser(); if err != nil {
+			c.Get()
+			return c.JSON(400, ErrorResponse{
+				Message: err.Error(),
+			})
+		}
+
+		return c.JSON(200, user)
 	})
 
 	e.Logger.Fatal(e.Start(":42069"))
