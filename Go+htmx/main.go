@@ -1,12 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"io"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"pedro21ribeiro.com/user/controller"
+	"pedro21ribeiro.com/controllers"
+	"pedro21ribeiro.com/dbConector"
 )
 
 type Templates struct {
@@ -26,11 +28,17 @@ func newTemplate() *Templates{
 
 func main() {
 
+	if dbConector.InstanciateDB() != nil {
+		fmt.Println("Error connecting to DB, aborting now")
+		return
+	}
+	fmt.Println("Database connected")
+
 	e := echo.New()
 	e.Use(middleware.Logger())
 	e.Renderer = newTemplate()
 
-	controller.SetUpControllers(e)
+	controllers.SetUpControllers(e)
 
 	e.Logger.Fatal(e.Start(":42069"))
 }
