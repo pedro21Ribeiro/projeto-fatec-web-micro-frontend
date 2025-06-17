@@ -40,7 +40,7 @@ func Test(c echo.Context) error{
 
 	_ , err = jwt.GetTokenData(cookie.Value); if err != nil {
 		c.Response().Header().Add("HX-Redirect", "/test/page")
-		return c.HTML(303, err.Error())
+		return c.HTML(303,"jwt expirado/invalido")
 	}
 
 
