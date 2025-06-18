@@ -3,36 +3,31 @@ package userController
 import (
 	"net/http"
 	"time"
-
 	"github.com/labstack/echo/v4"
-	"pedro21ribeiro.com/dtos/request"
+	userDto "pedro21ribeiro.com/dtos/user"
 	"pedro21ribeiro.com/services/user"
 )
 
 func SetUpControllers(group *echo.Group) {
-	group.GET("", getAllUsers)
+	group.GET("", landPage)
 	group.POST("/login", login)
 }
 
-func getAllUsers(c echo.Context) error{
-	users, err, status := userService.GetAllUsers(); if err != nil {
-		return c.JSON(status, err.Error())
-	}
-
-	return c.JSON(status, users)
+func landPage(c echo.Context) error {
+	return c.Render(200, "user_landing", userDto.NewError())
 }
 
 func login(c echo.Context) error{
-	data := new(request.LoginDto)
 
 	//Getting the JSON data
-	err := c.Bind(data); if err != nil || data.Email == "" || data.Password == "" {
-		return c.String(400, "Bad request")
-	}
+	email := c.FormValue("email")
+	password := c.FormValue("password")
 
 	//generating the token
-	token, err := userService.Login(data.Email, data.Password); if err != nil {
-		return c.String(400, err.Error())
+	token, err := userService.Login(email, password); if err != nil {
+		formError := userDto.NewError()
+		formError.Error = err.Error()
+		return c.Render(422, "form_error", formError)
 	}
 
 	cookie := new(http.Cookie)
@@ -41,6 +36,7 @@ func login(c echo.Context) error{
 	cookie.Expires = time.Now().Add(time.Hour * 8)
 	cookie.Path = "/"
 	c.SetCookie(cookie)
+	c.Response().Header().Set("HX-Redirect", "/user")
 
-	return c.String(200, token)
+	return c.String(200, "Sucess")
 }

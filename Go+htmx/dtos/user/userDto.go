@@ -1,15 +1,10 @@
 package userDto
 
-type UserDTO struct {
-	Name string
-	Email string
+type FormError struct {
+	Error string
 }
 
-type UsersDTO = []UserDTO
 
-func NewUserDTO(name, email string) UserDTO{
-	return UserDTO{
-		Name: name,
-		Email: email,
-	}
+func NewError() FormError{
+	return FormError{}
 }

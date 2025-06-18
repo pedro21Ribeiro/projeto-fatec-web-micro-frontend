@@ -53,8 +53,9 @@ func GetUserByEmail(email string) (*userModels.User, error){
 
 	querry:= time.Now()
 	res := db.First(&user ,"email = ?", email).Error; if res != nil {
-		return nil, err
+		return nil, res
 	}
+
 	timeToQuerry:= time.Since(querry)
 	fmt.Printf("\n\nTime to querry db was: %s\n", timeToQuerry)
 

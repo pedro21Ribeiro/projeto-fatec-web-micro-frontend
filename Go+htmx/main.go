@@ -19,8 +19,7 @@ func (t *Templates) Render(w io.Writer, name string, data interface{}, c echo.Co
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
-
-func newTemplate() *Templates{
+func newTemplate() *Templates {
 	return &Templates{
 		templates: template.Must(template.ParseGlob("views/*.html")),
 	}
@@ -39,6 +38,8 @@ func main() {
 	e.Renderer = newTemplate()
 
 	controllers.SetUpControllers(e)
+	e.Static("/css", "static/css")
+	e.Static("/js", "static/js")
 
 	e.Logger.Fatal(e.Start(":42069"))
 }
