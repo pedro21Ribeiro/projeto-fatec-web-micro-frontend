@@ -36,7 +36,7 @@ func login(c echo.Context) error{
 	cookie.Expires = time.Now().Add(time.Hour * 8)
 	cookie.Path = "/"
 	c.SetCookie(cookie)
-	c.Response().Header().Set("HX-Redirect", "/user")
+	c.Response().Header().Set("HX-Redirect", "/book")
 
 	return c.String(200, "Sucess")
 }

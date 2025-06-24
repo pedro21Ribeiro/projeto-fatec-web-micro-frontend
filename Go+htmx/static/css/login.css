@@ -1,5 +1,6 @@
 * {
     margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -8,6 +9,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: #89C9A9;
+    background: linear-gradient(90deg,rgba(36, 60, 90, 1)0%, rgba(34, 66, 97, 1) 50%, rgba(137, 201, 169, 1) 100% );
 }
 
 form {
@@ -18,10 +21,37 @@ form {
     justify-content: space-evenly;
     width: 30%;
     height: 40%;
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
 }
 
 input {
     margin-bottom: 20px;
+    width: 60%;
+    border-radius: 5px;
+}
+
+label {
+    width: 60%;
+    text-align: left;
+}
+
+button {
+    width: 120px;
+    border-radius: 10px;
+    background-color: #373F55;
+    color: white;
+    border-style: none;
+    font-size: 1.2rem;
+}
+
+#form_error>p {
+    color: rgb(193, 57, 57);
+}
+
+.logo {
+    width: 130px;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 30px;
 }

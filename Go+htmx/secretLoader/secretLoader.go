@@ -26,7 +26,7 @@ var authEnv *AuthEnvVars
 func LoadDBEnv(){
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Erro ao carregar o arquivo .env:", err)
+		log.Print("File .env not found, tring to loading using sysVariables")
 	}
 
 	dbEnv = &DBEnvVars{
@@ -41,7 +41,7 @@ func LoadDBEnv(){
 func LoadAuthEnv(){
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Erro ao carregar o arquivo .env:", err)
+		log.Print("File .env not found, tring to loading using sysVariables")
 	}
 
 	authEnv = &AuthEnvVars{

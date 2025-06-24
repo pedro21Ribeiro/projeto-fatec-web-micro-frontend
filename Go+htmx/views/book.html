@@ -1,0 +1,58 @@
+{{block "book_landing" .}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+    <title>LibGen Create Book</title>
+    <link rel="stylesheet" href="/css/book.css">
+</head>
+<body>
+    <img class="logo" src="/imgs/logo.jpeg" alt="Library logo"/>
+    {{template "book_form" .}}
+</body>
+</html>
+{{end}}
+
+{{block "book_form" . }}
+    <form id="book_form"
+        hx-post="/book"
+        hx-swap="outerHTML"
+    >
+    <h1>Library Genesis</h1>
+    <h3>Create a new entry</h3>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" {{if .Values.Name}} value="{{.Values.Name}}" {{end}}>
+        {{if .Errors.Name}}
+        <div class="err">{{.Errors.Name}}</div>
+        {{end}}
+        
+        <label for="isbn">ISBN:</label>
+        <input type="text" id="isbn" name="isbn" {{if .Values.Isbn}} value="{{.Values.Isbn}}" {{end}}>
+        {{if .Errors.Isbn}}
+        <div class="err">{{.Errors.Isbn}}</div>
+        {{end}}
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" {{if .Values.Date}} value="{{.Values.Date}}" {{end}}>
+        {{if .Errors.Date}}
+        <div class="err">{{.Errors.Date}}</div>
+        {{end}}
+
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" {{if .Values.Author}} value="{{.Values.Author}}" {{end}}>
+        {{if .Errors.Author}}
+        <div class="err">{{.Errors.Author}}</div>
+        {{end}}
+
+        <label for="publisher">Publisher:</label>
+        <input type="text" id="publisher" name="publisher" {{if .Values.Publisher}} value="{{.Values.Publisher}}" {{end}}>
+        {{if .Errors.Publisher}}
+        <div class="err">{{.Errors.Publisher}}</div>
+        {{end}}
+
+        <button type="submit">Create Book</button>
+    </form>
+{{end}}
+

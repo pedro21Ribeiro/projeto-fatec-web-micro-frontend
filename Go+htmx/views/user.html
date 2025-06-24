@@ -4,29 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>LibGen login</title>
     <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/login.css">
     <script src="/js/login.js" defer></script>
 </head>
 <body>
-    <h1>Library Genesis</h1>
+    <img class="logo" src="/imgs/logo.jpeg" alt="Library logo"/>
     {{ template "login_form" . }}
 </body>
 </html>
 {{end}}
 
 {{ block "login_form" . }}
-<form action="#">
-    <label for="email">Email</label>
+<form 
+    hx-post="/user/login"
+    hx-target="#form_error"
+    hx-swap="outerHTML"
+>
+    <h1>Library Genesis</h1>
+    <label for="email">Email:</label>
     <input type="email" name="email" id="email" required>
-    <label for="password">Password</label>
+    <label for="password">Password:</label>
     <input type="password" name="password" id="password" required>
     <button 
         type="submit"
-        hx-post="/user/login"
-        hx-target="#form_error"
-        hx-swap="outerHTML"
     >Login</button>
     {{ template "form_error" .}}
 </form>

@@ -36,10 +36,15 @@ func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
 	e.Renderer = newTemplate()
+	e.RouteNotFound("/*", func (c echo.Context) error {
+		c.Response().Header().Set("HX-Redirect", "/user")
+		return c.Redirect(303, "/user")
+	})
 
 	controllers.SetUpControllers(e)
 	e.Static("/css", "static/css")
 	e.Static("/js", "static/js")
+	e.Static("/imgs", "static/imgs")
 
 	e.Logger.Fatal(e.Start(":42069"))
 }
