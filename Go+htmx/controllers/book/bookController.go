@@ -32,8 +32,9 @@ func Create(c echo.Context) error {
 	date := c.FormValue("date")
 	author := c.FormValue("author")
 	publisher := c.FormValue("publisher")
+	imgUrl := c.FormValue("img_url")
 
 
-	formData := bookService.CreateBook(name, isbn, date, author, publisher)
+	formData := bookService.CreateBook(name, isbn, date, author, publisher, imgUrl)
 	return c.Render(http.StatusCreated, "book_form", formData)
 }

@@ -7,12 +7,12 @@ import (
 	bookModels "pedro21ribeiro.com/models/book"
 )
 
-func CreateBook(name, isbn string, date time.Time, author, publisher string) (uint, error) {
+func CreateBook(name, isbn string, date time.Time, author, publisher, imgUrl string) (uint, error) {
 	db, err := dbConector.GetDatabase()
 	if(err!=nil){
 		return 0, err
 	}
-	book := bookModels.NewBook(name, isbn, date, author, publisher)
+	book := bookModels.NewBook(name, isbn, date, author, publisher, imgUrl)
 
 	err = db.Create(&book).Error; if err != nil {
 		return 0, err 

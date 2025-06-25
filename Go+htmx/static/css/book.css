@@ -64,3 +64,8 @@ button {
     border-radius: 15px;
     margin-bottom: 30px;
 }
+
+.success {
+    color: rgb(62, 224, 79);
+    font-style: italic;
+}

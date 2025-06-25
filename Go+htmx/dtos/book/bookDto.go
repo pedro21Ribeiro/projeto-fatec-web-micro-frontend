@@ -12,10 +12,11 @@ func NewFormData() FormData {
 	}
 }
 
-func (f *FormData) Populate(name, isbn, date, author, publisher string) {
+func (f *FormData) Populate(name, isbn, date, author, publisher, imgUrl string) {
 	f.Values["Name"] = name
     f.Values["Isbn"] = isbn
     f.Values["Date"] = date
     f.Values["Author"] = author
     f.Values["Publisher"] = publisher
+	f.Values["ImgUrl"] = imgUrl
 }

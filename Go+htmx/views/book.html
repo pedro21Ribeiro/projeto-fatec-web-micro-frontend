@@ -52,7 +52,18 @@
         <div class="err">{{.Errors.Publisher}}</div>
         {{end}}
 
+        <label for="img_url">Image Link:</label>
+        <input type="text" id="img_url" name="img_url" {{if .Values.ImgUrl}} value="{{.Values.ImgUrl}}" {{end}}>
+        {{if .Errors.ImgUrl}}
+        <div class="err">{{.Errors.ImgUrl}}</div>
+        {{end}}
+
         <button type="submit">Create Book</button>
+        {{if .Values.Succes}}
+        <div class="success">
+            {{ .Values.Succes}}
+        </div>
+        {{end}}
     </form>
 {{end}}
 
